@@ -53,7 +53,7 @@ If the Detailed Output option (-DetailedOutput) is used the following columns ar
   1. Install the AzureCT PowerShell module by running the following command in a PowerShell prompt:
 
 		```powershell
-		(new-object Net.WebClient).DownloadString("https://aka.ms/AzureCT") | Invoke-Expression
+		(new-object Net.WebClient).DownloadString("https://raw.githubusercontent.com/ElanShudnow/AzureCTwithJitter/main/AzureCT/PowerShell/Install-AzureCT.ps1") | Invoke-Expression
 		```
 
 		>**Note**:  This will install a new PowerShell module with eight PowerShell cmdlets; Get-AzureNetworkAvailability, Clear-AzureCTHistory, Show-AzureCTResults, Get-HostName, Get-IPTrace, Remove-AzureCT, Install-LinkPerformance, and Get-LinkPerformance.
@@ -63,7 +63,7 @@ If the Detailed Output option (-DetailedOutput) is used the following columns ar
   2. On the new Azure VM, in an elevated PowerShell Prompt, run the following command:
    
 		```powershell
-		(new-object Net.WebClient).DownloadString("https://aka.ms/AzureCT") | Invoke-Expression
+		(new-object Net.WebClient).DownloadString("https://raw.githubusercontent.com/ElanShudnow/AzureCTwithJitter/main/AzureCT/PowerShell/Install-AzureCT.ps1") | Invoke-Expression
 		```
   3. Run the Install-LinkPerformance command to download iPerf and PSPing as well as set the firewall rules. Note: The -Force option can be used for unattended installations. 
   4. On your local PC you now have the Get-LinkPerformance command to run Network Connectivity Performance tests.
@@ -74,7 +74,7 @@ If the Detailed Output option (-DetailedOutput) is used the following columns ar
   1. Install the AzureCT PowerShell module by running the following command in a PowerShell prompt:
 
 		```powershell
-		(new-object Net.WebClient).DownloadString("https://aka.ms/AzureCT") | Invoke-Expression
+		(new-object Net.WebClient).DownloadString("https://raw.githubusercontent.com/ElanShudnow/AzureCTwithJitter/main/AzureCT/PowerShell/Install-AzureCT.ps1) | Invoke-Expression
 		```
 
 		>**Note**:  This will install a new PowerShell module with eight PowerShell cmdlets; Get-AzureNetworkAvailability, Clear-AzureCTHistory, Show-AzureCTResults, Get-HostName, Get-IPTrace, Remove-AzureCT, Install-LinkPerformance, and Get-LinkPerformance.

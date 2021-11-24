@@ -120,7 +120,7 @@
     # 2. Initialize
     $ToolPath = "C:\ACTTools\"
     $WebSource = "https://github.com/Azure/NetworkMonitoring"
-    $FileArray = "P00", "P01", "P06", "P16", "P17", "P32"
+    $FileArray = "P00", "P01", "P06", "P16", "P17", "P18", "P32"
     $PingDuration = $TestSeconds
     $LoadDuration = $TestSeconds + 10
     If ($RemoteHostOS -eq "Windows") {$PingPort="3389"} Else {$PingPort="22"}
@@ -193,12 +193,13 @@
     # 6. Main Test Loop
     ForEach ($FilePrefix in $FileArray) {
         switch($FilePrefix) {
-            "P00" {$Threads = 00; $TestName = "Stage 1 of 6: No Load Ping Test..."}
-            "P01" {$Threads = 01; $TestName = "Stage 2 of 6: Single Thread Test..."}
-            "P06" {$Threads = 06; $TestName = "Stage 3 of 6: 6 Thread Test..."}
-            "P16" {$Threads = 16; $TestName = "Stage 4 of 6: 16 Thread Test..."}
-            "P17" {$Threads = 16; $TestName = "Stage 5 of 6: 16 Thread Test with 1Mb window..."}
-            "P32" {$Threads = 32; $TestName = "Stage 6 of 6: 32 Thread Test..."}
+            "P00" {$Threads = 00; $TestName = "Stage 1 of 7: No Load Ping Test..."}
+            "P01" {$Threads = 01; $TestName = "Stage 2 of 7: Single Thread Test..."}
+            "P06" {$Threads = 06; $TestName = "Stage 3 of 7: 6 Thread Test..."}
+            "P16" {$Threads = 16; $TestName = "Stage 4 of 7: 16 Thread Test..."}
+            "P17" {$Threads = 16; $TestName = "Stage 5 of 7: 16 Thread Test with 1Mb window..."}
+            "P18" {$Threads = 16; $TestName = "Stage 6 of 7: 16 Thread Jitter Test..."}
+            "P32" {$Threads = 32; $TestName = "Stage 7 of 7: 32 Thread Test..."}
             default {Write-Error "Invalid FilePrefix, execution stopping!"; Return}
         } # End Switch
 
@@ -212,6 +213,9 @@
             "P00" {}
             "P17" {
                 $iPerfJob = Start-Job -ScriptBlock {C:\ACTTools\iperf3.exe -c $args[0] -t $args[1] -i 0 -P $args[2]  -w1M --logfile $args[3]} -Name 'ACT.LinkPerf' -ArgumentList "$RemoteHost", "$LoadDuration", "$Threads", "$FileName"
+                Sleep -Seconds 5}
+            "P18" {
+                $iPerfJob = Start-Job -ScriptBlock {C:\ACTTools\iperf3.exe -c $args[0] -t $args[1] -i 0 -P $args[2] -u --logfile $args[3]} -Name 'ACT.LinkPerf' -ArgumentList "$RemoteHost", "$LoadDuration", "$Threads", "$FileName"
                 Sleep -Seconds 5}
             default {
                 $iPerfJob = Start-Job -ScriptBlock {C:\ACTTools\iperf3.exe -c $args[0] -t $args[1] -i 0 -P $args[2] --logfile $args[3]} -Name 'ACT.LinkPerf' -ArgumentList "$RemoteHost", "$LoadDuration", "$Threads", "$FileName"
@@ -251,6 +255,7 @@
             "P06" {$TestName = "6 Sessions"}
             "P16" {$TestName = "16 Sessions"}
             "P17" {$TestName = "16 Sessions with 1Mb window"}
+            "P18" {$TestName = "16 Sessions with Jitter Test"}
             "P32" {$TestName = "32 Sessions"}
             default {}
         } # End Switch
@@ -264,7 +269,12 @@
             Try {
                 $Lines = Get-Content $FileName -ErrorAction Stop
                 ForEach ($Line in $Lines) {
-                    If ($FilePrefix -eq "P01") {If (($Line -like "*receiver*")) {$TPut = $Line.Substring(38,17).Trim()} #End If
+                    If ($FilePrefix -eq "P01") {
+                        If (($Line -like "*receiver*")) {$TPut = $Line.Substring(38,17).Trim()} #End If
+                    }
+                    If ($FilePrefix -eq "P18") {
+                        If (($Line -like "*sum*ms*")) {$JPut = $Line.Substring(54,9).Trim()} #End If
+                        $TPut = "N/A"
                     }
                     Else {
                         If (($Line -like "*SUM*" -and $Line -like "*receiver*")) {$TPut = $Line.Substring(38,17).Trim()} #End If
@@ -273,6 +283,8 @@
             } # End Try
             Catch {Write-Warning "Error reading or processing file: $FileName"}
         } # End If
+
+        
 
 
         # 7.2 PSPing log file line loop
@@ -339,8 +351,13 @@
         $TestResults += $Test
     } # End Foreach
 
+    Write-Host " "
+    Write-Host "Average UDP Jitter: $JPut"
+
     # 8. Output results
     If ($DetailedOutput) {Write-Output $TestResults}
     Else {Write-Output $TestResults | Select Name, Bandwidth, Loss, P50}
 
 } # End Function
+
+
