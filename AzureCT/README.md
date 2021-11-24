@@ -71,7 +71,6 @@ If the Detailed Output option (-DetailedOutput) is used the following columns ar
 
 #### Ubuntu VM
 - Local PC Instructions:
-- Local PC Instructions:
   1. Install the AzureCT PowerShell module by running the following command in a PowerShell prompt:
 
 		```powershell
