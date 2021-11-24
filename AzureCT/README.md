@@ -90,10 +90,11 @@ If the Detailed Output option (-DetailedOutput) is used the following columns ar
   3. On your local PC you now have the Get-LinkPerformance command to run Network Connectivity Performance tests.
 
 ### Running the Tool
-1. On the local host, open a PowerShell prompt.
-2. Run the "Get-Module" command to see if AzureCT is loaded, if not run "Import-Module AzureCT" to load the module.
-2. Run the Install-LinkPerformance. This command only needs to be run once for a given host. However if required files are deleted or the host is configured so that Get-LinkPerformance can't run successfully you will be prompted to run Install-LinkPerformance again to get the host enabled for successful testing.
-3. The main cmdlet is Get-LinkPerformance. This function will run six load tests in sequence and output the results. This function has four input parameters:
+1. On the remote host (Windows Server VM or Ubuntu), start iPerf3 in server mode (e.g. "iPerf3 -s")
+2. On the local host, open a PowerShell prompt.
+3. Run the "Get-Module" command to see if AzureCT is loaded, if not run "Import-Module AzureCT" to load the module.
+4. Run the Install-LinkPerformance. This command only needs to be run once for a given host. However if required files are deleted or the host is configured so that Get-LinkPerformance can't run successfully you will be prompted to run Install-LinkPerformance again to get the host enabled for successful testing.
+5. The main cmdlet is Get-LinkPerformance. This function will run six load tests in sequence and output the results. This function has four input parameters:
 	- **RemoteHost** - This parameter is required and is the Remote Host IP Address. This host must be running iPerf3 in server mode.
 	- **RemoteHostOS** - This optional parameter signifies the operating system of the REMOTE host. Valid values are "Windows" or "Linux". It is assumed that if the remote host is Linux it is listening on port 22. If Windows PSPing will use the RDP port 3389.
 	- **TestSeconds** - This optional parameter signifies the duration of the PSPing test in seconds. It is an integer value (whole number). The range of valid values is 10 - 3600 seconds (10 seconds - 1 hour). The default value is 60 seconds (1 minute).
