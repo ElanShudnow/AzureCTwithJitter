@@ -7,7 +7,7 @@ AzureCT consists of two components:
 2. Client leveraging PowerShell
 
 ### Prerequisites
-This tool has three prerequisites that must be in place before using:
+This tool has several prerequisites that must be in place before using:
 
 1. An Azure virtual network with a Site-to-Site VPN or ExpressRoute connection to another (usually "on-premises") network in which you want the test to run from. If testing Internet Performance, leverage the Public IP of the Azure VM instead.
 2. A newly created Azure Virtual Machine (VM), running either Windows Server 2012 or greater or a Linux VM (tested with Ubuntu), on the Azure VNet that is reachable from the on-premises network. The files and configuration of the Azure VM will be modified, potentially in disruptive ways. To avoid conflicts and/or errors it is important that the Azure VM used is newly built and is a "clean" build, meaning with no other applications or data installed.
@@ -49,7 +49,7 @@ If the Detailed Output option (-DetailedOutput) is used the following columns ar
 - Max Latency: the maximum TCP ping latency seen during the test
 
 ### Windows Server Azure VM
-- Local PC Instructions:
+- Local PC Instructions (Windows Client):
   1. Install the AzureCT PowerShell module by running the following command in a PowerShell prompt:
 
 		```powershell
@@ -70,7 +70,7 @@ If the Detailed Output option (-DetailedOutput) is used the following columns ar
 
 
 #### Ubuntu VM
-- Local PC Instructions:
+- Local PC Instructions (Windows Client):
   1. Install the AzureCT PowerShell module by running the following command in a PowerShell prompt:
 
 		```powershell
