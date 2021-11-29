@@ -57,7 +57,8 @@ If the Detailed Output option (-DetailedOutput) is used the following columns ar
 		```
 
 		>**Note**:  This will install a new PowerShell module with eight PowerShell cmdlets; Get-AzureNetworkAvailability, Clear-AzureCTHistory, Show-AzureCTResults, Get-HostName, Get-IPTrace, Remove-AzureCT, Install-LinkPerformance, and Get-LinkPerformance.
-  2. Run the Install-LinkPerformance command to download iPerf and PSPing as well as set the firewall rules. Note: The -Force option can be used for unattended installations. 
+  2. Run Import-Module AzureCT -Force  
+  3. Run the Install-LinkPerformance command to download iPerf and PSPing as well as set the firewall rules. Note: The -Force option can be used for unattended installations. 
 - Windows Server Azure VM Instructions:
   1. Create a new Windows Server Azure VM on an ExpressRoute or Site-to-Site connected VNet.  Ensure the Network Security Group (NSG) allows port 5201 inbound for both TCP and UDP.
   2. On the new Azure VM, in an elevated PowerShell Prompt, run the following command:
@@ -65,8 +66,9 @@ If the Detailed Output option (-DetailedOutput) is used the following columns ar
 		```powershell
 		(new-object Net.WebClient).DownloadString("https://raw.githubusercontent.com/ElanShudnow/AzureCTwithJitter/main/AzureCT/PowerShell/Install-AzureCT.ps1") | Invoke-Expression
 		```
-  3. Run the Install-LinkPerformance command to download iPerf and PSPing as well as set the firewall rules. Note: The -Force option can be used for unattended installations. 
-  4. On your local PC you now have the Get-LinkPerformance command to run Network Connectivity Performance tests.
+  3. Run Import-Module AzureCT -Force 
+  4. Run the Install-LinkPerformance command to download iPerf and PSPing as well as set the firewall rules. Note: The -Force option can be used for unattended installations. 
+  5. On your local PC you now have the Get-LinkPerformance command to run Network Connectivity Performance tests.
 
 
 ### Ubuntu VM
@@ -78,7 +80,8 @@ If the Detailed Output option (-DetailedOutput) is used the following columns ar
 		```
 
 		>**Note**:  This will install a new PowerShell module with eight PowerShell cmdlets; Get-AzureNetworkAvailability, Clear-AzureCTHistory, Show-AzureCTResults, Get-HostName, Get-IPTrace, Remove-AzureCT, Install-LinkPerformance, and Get-LinkPerformance.
-  2. Run the Install-LinkPerformance command to download iPerf and PSPing as well as set the firewall rules. Note: The -Force option can be used for unattended installations. 
+  2. Run Import-Module AzureCT -Force 
+  3. Run the Install-LinkPerformance command to download iPerf and PSPing as well as set the firewall rules. Note: The -Force option can be used for unattended installations. 
 - Ubuntu Azure VM Instructions:
   1. Create a new Ubuntu Azure VM on an ExpressRoute or Site-to-Site connected VNet.  Ensure the Network Security Group (NSG) allows port 5201 inbound for both TCP and UDP.
   2. On the new Azure VM, in Bash, run the following command::
@@ -92,7 +95,7 @@ If the Detailed Output option (-DetailedOutput) is used the following columns ar
 ### Running the Tool
 1. On the remote host (Windows Server VM or Ubuntu), start iPerf3 in server mode (e.g. "iPerf3 -s")
 2. On the local host, open a PowerShell prompt.
-3. Run the "Get-Module" command to see if AzureCT is loaded, if not run "Import-Module AzureCT" to load the module.
+3. Run the "Get-Module" command to see if AzureCT is loaded, if not run "Import-Module AzureCT -force" to load the module.
 4. Run the Install-LinkPerformance. This command only needs to be run once for a given host. However if required files are deleted or the host is configured so that Get-LinkPerformance can't run successfully you will be prompted to run Install-LinkPerformance again to get the host enabled for successful testing.
 5. The main cmdlet is Get-LinkPerformance. This function will run six load tests in sequence and output the results. This function has four input parameters:
 	- **RemoteHost** - This parameter is required and is the Remote Host IP Address. This host must be running iPerf3 in server mode.
@@ -132,7 +135,8 @@ Once testing is complete the Azure VM can be deleted to avoid unnecessary Azure 
 
 To ensure 100% removal of all artifacts from this tool perform the following step:
 
-1. Run the Remove-AzureCT command from PowerShell. This will remove the PowerShell module and any local data files.
+1. Run Import-Module AzureCT -Force 
+2. Run the Remove-AzureCT command from PowerShell. This will remove the PowerShell module and any local data files.
 
 	```powershell
 	Remove-AzureCT
