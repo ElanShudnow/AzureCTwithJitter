@@ -74,7 +74,7 @@ If the Detailed Output option (-DetailedOutput) is used the following columns ar
   1. Install the AzureCT PowerShell module by running the following command in a PowerShell prompt:
 
 		```powershell
-		(new-object Net.WebClient).DownloadString("https://raw.githubusercontent.com/ElanShudnow/AzureCTwithJitter/main/AzureCT/PowerShell/Install-AzureCT.ps1) | Invoke-Expression
+		(new-object Net.WebClient).DownloadString("https://raw.githubusercontent.com/ElanShudnow/AzureCTwithJitter/main/AzureCT/PowerShell/Install-AzureCT.ps1") | Invoke-Expression
 		```
 
 		>**Note**:  This will install a new PowerShell module with eight PowerShell cmdlets; Get-AzureNetworkAvailability, Clear-AzureCTHistory, Show-AzureCTResults, Get-HostName, Get-IPTrace, Remove-AzureCT, Install-LinkPerformance, and Get-LinkPerformance.
