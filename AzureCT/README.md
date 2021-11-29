@@ -69,7 +69,7 @@ If the Detailed Output option (-DetailedOutput) is used the following columns ar
   4. On your local PC you now have the Get-LinkPerformance command to run Network Connectivity Performance tests.
 
 
-#### Ubuntu VM
+### Ubuntu VM
 - Local PC Instructions (Windows Client):
   1. Install the AzureCT PowerShell module by running the following command in a PowerShell prompt:
 
